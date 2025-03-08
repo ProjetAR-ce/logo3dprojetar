@@ -1,44 +1,31 @@
-<html>
+<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
-    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projetar</title>
     <script>
-        AFRAME.registerComponent("mytarget", {
-            init: function () {
-                this.el.addEventListener("targetFound", (event) => {
-                    console.log("target found");
-                    const examplePlane = document.querySelector('#example-plane');
-                    examplePlane.addEventListener("click", event => {
-                        window.location.href = "https://www.instagram.com/projetar_ce";
-                        console.log("plane click");
-                    });
-                });
-                this.el.addEventListener("targetLost", (event) => {
-                    console.log("target lost");
-                });
-            },
-        });
+        window.onload = function() {
+
+            const probabilidadeLink1 = 90; 
+            const probabilidadeLink2 = 10;
+
+
+            const link1 = "https://projetar-ce.github.io/derrota/";
+            const link2 = "https://projetar-ce.github.io/show/";
+
+            // Gera um número aleatório entre 0 e 100
+            const random = Math.random() * 100;
+
+            // Redireciona com base na porcentagem
+            if (random < probabilidadeLink1) {
+                window.location.href = link1;
+            } else {
+                window.location.href = link2;
+            }
+        };
     </script>
 </head>
-
 <body>
-    <a-scene mindar-image="imageTargetSrc: assets/markers/targets.mind; showStats: false; uiScanning: yes;"
-        embedded color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights"
-        vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
-
-        <a-assets>
-            <img id="insta" src="assets/images/instagram.png"/>
-            <a-asset-item id="logo-3d" src="assets/3d/projetAR.glb"></a-asset-item> <!-- Adicionando o modelo 3D -->
-        </a-assets>
-
-        <a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;" raycaster="near: 10; far: 10000; objects: .clickable"></a-camera>
-
-        <a-entity id="mytarget" mytarget mindar-image-target="targetIndex: 0">
-            <a-plane src="#insta" id="example-plane" class="clickable" position="0 -0.9 0" height="0.25" width="0.25" rotation="0 0 0"></a-plane>
-            <a-entity gltf-model="#logo-3d" position="0 0 0" rotation="0 180 180" scale="9.5 9.5 9.5"></a-entity>
-<!-- Adicionando a animação de rotação -->
-        </a-entity>
-    </a-scene>
 </body>
 </html>
